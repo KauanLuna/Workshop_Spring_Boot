@@ -103,6 +103,7 @@
                                     <span class="is-warning">Nível ${heroi.nivel}</span>
                                 </span>
                             </div>
+                            <button class="nes-btn is-error" onclick="deletar(${heroi.id})">X</button>
                             <button class="nes-btn is-error" onclick="irParaMissao(${heroi.id})">
                                 ⚔️ Missão
                             </button>
@@ -151,6 +152,22 @@
             'LADINO': '🗡️', 'BRUXO': '🧪', 'CLERIGO': '✨', 'BARDO': '🎵'
         };
         return icones[classe] || '🧑‍🎤';
+    }
+
+    // --- 4. DELETAR (NOVO) ---
+    async function deletar(id) {
+        // Confirmação simples para evitar cliques acidentais
+        if(!confirm("Tem certeza que deseja expulsar este aventureiro da guilda?")) return;
+
+        try {
+            // Atenção à URL: /deletar/{id} conforme seu Controller
+            await fetch(`${API_URL}/deletar/${id}`, { 
+                method: 'DELETE' 
+            });
+            carregarTaverna(); // Recarrega a lista após deletar
+        } catch (erro) {
+            alert("Erro ao deletar aventureiro!");
+        }
     }
 
     // Carrega ao abrir a página
