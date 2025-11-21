@@ -1,103 +1,136 @@
 # 🛡️ Workshop Spring Boot: API da Guilda de Aventureiros
 
-Bem-vindos à Guilda! Hoje vamos construir uma API REST completa usando Java e Spring Boot. O objetivo é gerenciar um cadastro de aventureiros de RPG e criar uma lógica para que eles subam de nível.
+Bem-vindo à API da Guilda de Aventureiros! Esta é uma aplicação Spring Boot que gerencia um sistema de aventureiros de RPG, permitindo criar, buscar, atualizar e remover aventureiros, além de gerenciar suas missões e progressão de níveis.
 
----
+## 📋 Estrutura do Projeto
 
-## ✅ Passo 0: Pré-requisitos
-
-Certifique-se de que seu projeto (criado no [start.spring.io](https://start.spring.io)) tem as seguintes dependências no `pom.xml`:
-* **Spring Web**
-* **Spring Data JPA**
-* **MySQL Driver**
-
----
-
-## ⚙️ Passo 1: Configuração do Banco de Dados
-
-O Spring precisa saber como conectar no seu MySQL. Vamos configurar isso e pedir para ele criar o banco automaticamente.
-
-**Arquivo:** `src/main/resources/application.properties`
-
-```properties
-spring.application.name=guilda-api
-
-# --- Conexão MySQL ---
-# 'createDatabaseIfNotExist=true' cria o banco sozinho se ele não existir
-spring.datasource.url=jdbc:mysql://localhost:3306/guilda_db?createDatabaseIfNotExist=true&serverTimezone=UTC
-spring.datasource.username=root
-spring.datasource.password=SUA_SENHA_AQUI
-
-# --- Configuração JPA/Hibernate ---
-# Mostra o SQL no console (para a gente ver a mágica acontecendo)
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-
-# Atualiza a estrutura das tabelas automaticamente baseada no código Java
-spring.jpa.hibernate.ddl-auto=update
+```
+src/main/java/workshop/spring/apirest/
+├── ApiRestApplication.java     # Classe principal da aplicação
+├── controller/                # Controladores REST
+│   └── AventureiroController.java
+├── entity/                    # Entidades JPA
+│   ├── Aventureiro.java
+│   └── ClasseRPG.java
+├── repository/                # Repositórios de dados
+│   └── AventureiroRepository.java
+└── service/                   # Lógica de negócios
+    └── AventureiroService.java
 ```
 
-## 📦 Passo 2: Criando o Domínio (Model)
+## 🚀 Como Executar
 
-Vamos definir o que é um Aventureiro e quais Classes de RPG existem. É aqui que transformamos o conceito do jogo em código Java que o banco de dados entende.
+1. **Pré-requisitos**
+   - Java 17 ou superior
+   - Maven
+   - MySQL (ou outro banco de dados compatível com JPA)
 
-### 1. O Enum de Classes
-Primeiro, vamos restringir os tipos de heróis. Crie um pacote chamado `model` e dentro dele o arquivo `ClasseRPG.java`.
+2. **Configuração do Banco de Dados**
+   Crie um banco de dados MySQL e configure o arquivo `application.properties`:
+   ```properties
+   spring.datasource.url=jdbc:mysql://localhost:3306/guilda_sptech?createDatabaseIfNotExist=true&serverTimezone=UTC
+   spring.datasource.username=seu_usuario
+   spring.datasource.password=sua_senha
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.show-sql=true
+   ```
 
-**Arquivo:** `src/main/java/com/exemplo/guilda/model/ClasseRPG.java`
+3. **Executando a Aplicação**
+    ```bash
+   Run no Intellij
+   ```
+   OU
+   ```bash
+   mvn spring-boot:run
+   ```
 
-```java
-package com.exemplo.guilda.model;
+   A aplicação estará disponível em: `http://localhost:8080`
 
-public enum ClasseRPG {
-    GUERREIRO,
-    MAGO,
-    ARQUEIRO,
-    LADINO
+## 📚 Documentação da API
+
+### Aventureiros
+
+#### Listar todos os aventureiros
+```
+GET /aventureiros/listar
+```
+
+#### Buscar aventureiro por ID
+```
+GET /aventureiros/buscar/{id}
+```
+
+#### Buscar aventureiro por nome
+```
+GET /aventureiros/buscar/{nome}
+```
+
+#### Buscar aventureiros por classe
+```
+GET /aventureiros/buscar/{classe}
+```
+
+#### Buscar aventureiros por nível
+```
+GET /aventureiros/buscar/{nivel}
+```
+
+#### Criar novo aventureiro
+```
+POST /aventureiros/criar
+```
+**Corpo da requisição:**
+```json
+{
+    "nome": "Nome do Aventureiro",
+    "classe": "GUERREIRO"
 }
 ```
 
-## 💾 Passo 3: Acesso a Dados (Repository)
-
-Agora que temos a tabela definida (Entidade), precisamos de um componente para "conversar" com o banco de dados (Salvar, Deletar, Buscar). No Spring Boot, quem faz isso é o **Repository**.
-
-A "mágica" aqui é que **não precisamos escrever SQL**. O Spring cria os comandos sozinho baseados nos métodos que chamamos.
-
-### Criando o Repositório
-
-Crie um pacote chamado `repository` e dentro dele a **interface** `AventureiroRepository.java`.
-
-> **Atenção:** Note que isto é uma `interface`, e não uma `class`.
-
-**Arquivo:** `src/main/java/com/exemplo/guilda/repository/AventureiroRepository.java`
-
-```java
-package com.exemplo.guilda.repository;
-
-import com.exemplo.guilda.model.Aventureiro;
-import com.exemplo.guilda.model.ClasseRPG; // Não esqueça de importar o Enum
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
-
-@Repository
-public interface AventureiroRepository extends JpaRepository<Aventureiro, Long> {
-
-    // ✨ Mágica do Spring Data (Query Methods):
-    // Apenas declarando este método, o Spring monta o SQL:
-    // SELECT * FROM tb_aventureiros WHERE classe = ?
-    List<Aventureiro> findByClasse(ClasseRPG classe);
-
+#### Atualizar aventureiro
+```
+PUT /aventureiros/atualizar
+```
+**Corpo da requisição:**
+```json
+{
+    "id": 1,
+    "nome": "Novo Nome",
+    "classe": "MAGO",
+    "nivel": 1,
+    "xp": 0
 }
 ```
 
-## 🧠 Passo 4: Regra de Negócio (Service)
+#### Deletar aventureiro
+```
+DELETE /aventureiros/deletar/{id}
+```
 
-O **Service** é o cérebro da nossa aplicação. O Controller recebe o pedido, mas é o Service quem decide *o que fazer* com ele.
+#### Realizar missão
+```
+PUT /aventureiros/missao/{id}
+```
+Realiza uma missão com o aventureiro, concedendo XP e subindo de nível quando necessário.
 
-Aqui vamos implementar a lógica de RPG:
-1.  Garantir que todo mundo comece no Nível 1.
+## 🎮 Classes de Aventureiros
+
+A API suporta as seguintes classes de aventureiros:
+- `GUERREIRO`
+- `MAGO`
+- `ARQUEIRO`
+- `LADINO`
+
+## 📊 Modelo de Dados
+
+### Aventureiro
+| Campo  | Tipo      | Descrição                          |
+|--------|-----------|-----------------------------------|
+| id     | Long      | Identificador único               |
+| nome   | String    | Nome do aventureiro               |
+| classe | ClasseRPG | Classe do aventureiro (enum)      |
+| nivel  | Integer   | Nível atual (inicia em 1)         |
+| xp     | Integer   | Pontos de experiência (inicia em 0) |
 2.  Calcular o ganho de XP aleatório.
 3.  Verificar se o herói subiu de nível.
 
@@ -241,7 +274,7 @@ Primeiro, precisamos popular o nosso banco de dados. Vamos criar um herói.
 Agora vamos ver os membros da guilda
 
 * **Método:** `GET`
-* **URL:** `http://localhost:8080/aventureiros/guida`
+* **URL:** `http://localhost:8080/aventureiros/guilda`
 * **Body (JSON):**
 
 ```json
@@ -249,7 +282,7 @@ Agora vamos ver os membros da guilda
     "nome": "Geralt",
     "classe": "GUERREIRO",
     "nivel": 1,
-    "xp": 0,
+    "xp": 0
 }
 ```
 

@@ -2,22 +2,24 @@ package workshop.spring.apirest.entity;
 
 import jakarta.persistence.*;
 
+@Entity
 @Table(name = "aventureiro")
 public class Aventureiro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", nullable = false)
     private String nome;
 
-    @Column(name = "classe")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "classe", nullable = false)
     private ClasseRPG classe;
 
-    @Column(name = "nivel")
+    @Column(name = "nivel", nullable = false)
     private Integer nivel = 1;
 
-    @Column(name = "xp")
+    @Column(name = "xp", nullable = false)
     private Integer xp = 0;
 
     public Aventureiro() {
