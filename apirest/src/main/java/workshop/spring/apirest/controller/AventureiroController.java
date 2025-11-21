@@ -30,16 +30,6 @@ public class AventureiroController {
         return aventureiroService.create(aventureiro);
     }
 
-    @PutMapping("/atualizar")
-    public Aventureiro atualizarAventureiro(@RequestBody Aventureiro aventureiro) {
-        return aventureiroService.update(aventureiro);
-    }
-
-    @DeleteMapping("/deletar/{id}")
-    public void deletarAventureiro(@PathVariable Long id) {
-        aventureiroService.delete(id);
-    }
-
     @GetMapping("/buscar/{id}")
     public Optional<Aventureiro> buscarAventureiroPorId(@PathVariable Long id) {
         return aventureiroService.findById(id);
@@ -58,15 +48,5 @@ public class AventureiroController {
     @GetMapping("/buscar/{nivel}")
     public List<Aventureiro> buscarAventureiroPorNivel(@PathVariable Integer nivel) {
         return aventureiroService.findByNivel(nivel);
-    }
-
-    @GetMapping("/buscar/{xp}")
-    public List<Aventureiro> buscarAventureiroPorXp(@PathVariable Integer xp) {
-        return aventureiroService.findByXp(xp);
-    }
-
-    @PutMapping("/missao/{id}")
-    public Aventureiro realizarMissao(@PathVariable Long id) {
-        return aventureiroService.realizarMissao(id);
     }
 }

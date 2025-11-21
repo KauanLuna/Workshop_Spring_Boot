@@ -1,6 +1,5 @@
 package workshop.spring.apirest.repository;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,13 +13,11 @@ import java.util.Optional;
 @Repository
 public interface AventureiroRepository extends JpaRepository<Aventureiro, Long> {
 
-    @NonNull
     @Query("SELECT a FROM Aventureiro a")
     List<Aventureiro> findAll();
 
-    @NonNull
     @Query("SELECT a FROM Aventureiro a WHERE a.id = :id")
-    Optional<Aventureiro> findById(@Param("id")  Long id);
+    Optional<Aventureiro> findById(@Param("id") Long id);
 
     @Query("SELECT a FROM Aventureiro a WHERE a.nome = :nome")
     Aventureiro findByNome(@Param("nome") String nome);
