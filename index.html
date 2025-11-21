@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Guilda SPTECH</title>
+    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #212529;
+            color: white;
+            padding: 2rem;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        .card-heroi { margin-bottom: 20px; }
+        .avatar { font-size: 2rem; margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <i class="nes-icon trophy is-large"></i>
+        <h1>Guilda SPTECH</h1>
+        <p>Gestão de Aventureiros</p>
+    </div>
+
+    <div class="nes-container with-title is-centered">
+        <p class="title">Novo Recruta</p>
+        <div style="background-color: white; color: black; padding: 1rem;">
+            
+            <div class="nes-field">
+                <label for="nome">Nome do Herói:</label>
+                <input type="text" id="nome" class="nes-input" placeholder="Ex: Gandalf">
+            </div>
+            
+            <br>
+            
+            <div class="nes-field">
+                <label for="classe">Classe:</label>
+                <div class="nes-select">
+                    <select id="classe">
+                        <option value="" disabled selected>Escolha a Classe...</option>
+                        <option value="GUERREIRO">Guerreiro</option>
+                        <option value="MAGO">Mago</option>
+                        <option value="ARQUEIRO">Arqueiro</option>
+                        <option value="LADINO">Ladino</option>
+                        <option value="BRUXO">Bruxo</option>
+                        <option value="CLERIGO">Clérigo</option>
+                        <option value="BARDO">Bardo</option>
+                    </select>
+                </div>
+            </div>
+
+            <br>
+            <button type="button" class="nes-btn is-primary" onclick="cadastrar()">Recrutar</button>
+        </div>
+    </div>
+
+    <br><br>
+
+    <div class="nes-container with-title is-dark">
+        <p class="title">Membros da Guilda</p>
+        <div id="lista-herois">
+            <p>Carregando taverna...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // URL base da sua API (Porta definida no application.properties)
+    const API_URL = 'http://localhost:8080/aventureiros';
+
+    // --- 1. LISTAR (GET /listar) ---
+    async function carregarTaverna() {
+        try {
+            const resposta = await fetch(`${API_URL}/listar`);
+            const herois = await resposta.json();
+            
+            const lista = document.getElementById('lista-herois');
+            lista.innerHTML = ''; 
+
+            if(herois.length === 0) {
+                lista.innerHTML = '<p>A taverna está vazia...</p>';
+                return;
+            }
+
+            herois.forEach(heroi => {
+                // Calcula % de XP para a barra de progresso
+                const porcentagemXp = heroi.xp; 
+
+                lista.innerHTML += `
+                    <div class="nes-container is-rounded is-light card-heroi" style="color: black;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h3>${getIcone(heroi.classe)} ${heroi.nome}</h3>
+                                <span class="nes-badge">
+                                    <span class="is-dark">${heroi.classe}</span>
+                                </span>
+                                <span class="nes-badge">
+                                    <span class="is-warning">Nível ${heroi.nivel}</span>
+                                </span>
+                            </div>
+                            <button class="nes-btn is-error" onclick="irParaMissao(${heroi.id})">
+                                ⚔️ Missão
+                            </button>
+                        </div>
+                        
+                        <div style="margin-top: 10px;">
+                            <span>XP: ${heroi.xp} / 100</span>
+                            <progress class="nes-progress is-success" value="${porcentagemXp}" max="100"></progress>
+                        </div>
+                    </div>
+                `;
+            });
+        } catch (erro) {
+            console.error(erro);
+            alert("Erro ao conectar com a API. O backend está rodando?");
+        }
+    }
+
+    // --- 2. CADASTRAR (POST /criar) ---
+    async function cadastrar() {
+        const nome = document.getElementById('nome').value;
+        const classe = document.getElementById('classe').value;
+
+        if (!nome || !classe) return alert("Preencha os dados do herói!");
+
+        await fetch(`${API_URL}/criar`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome, classe })
+        });
+
+        document.getElementById('nome').value = '';
+        document.getElementById('classe').value = '';
+        carregarTaverna();
+    }
+
+    // --- 3. MISSÃO (PUT /missao/{id}) ---
+    async function irParaMissao(id) {
+        await fetch(`${API_URL}/missao/${id}`, { method: 'PUT' });
+        carregarTaverna(); 
+    }
+
+    function getIcone(classe) {
+        const icones = {
+            'GUERREIRO': '🛡️', 'MAGO': '🔮', 'ARQUEIRO': '🏹',
+            'LADINO': '🗡️', 'BRUXO': '🧪', 'CLERIGO': '✨', 'BARDO': '🎵'
+        };
+        return icones[classe] || '🧑‍🎤';
+    }
+
+    // Carrega ao abrir a página
+    carregarTaverna();
+</script>
+
+</body>
+</html>
