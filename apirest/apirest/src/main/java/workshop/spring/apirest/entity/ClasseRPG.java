@@ -1,19 +1,33 @@
 package workshop.spring.apirest.entity;
 
-public enum ClasseRPG {
-    MAGO,
-    GUERRERO,
-    LADINO,
-    BRUXO,
-    CLERIGO,
-    BARDO,
-    ARQUEIRO;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-    ClasseRPG() {
+public enum ClasseRPG {
+    MAGO("MAGO"),
+    GUERREIRO("GUERREIRO"),
+    LADINO("LADINO"),
+    BRUXO("BRUXO"),
+    CLERIGO("CLERIGO"),
+    BARDO("BARDO"),
+    ARQUEIRO("ARQUEIRO");
+
+    private final String nome;
+
+    ClasseRPG(String nome) {
+        this.nome = nome;
     }
 
-    @Override
-    public String toString() {
-        return "ClasseRPG{} " + super.toString();
+    @JsonValue
+    public String getNome() {
+        return nome;
+    }
+
+    public static ClasseRPG fromNome(String nome) {
+        for (ClasseRPG classe : values()) {
+            if (classe.nome.equalsIgnoreCase(nome)) {
+                return classe;
+            }
+        }
+        throw new IllegalArgumentException("Classe inválida: " + nome);
     }
 }
