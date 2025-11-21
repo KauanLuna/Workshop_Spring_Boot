@@ -35,6 +35,7 @@ spring.jpa.properties.hibernate.format_sql=true
 
 # Atualiza a estrutura das tabelas automaticamente baseada no código Java
 spring.jpa.hibernate.ddl-auto=update
+```
 
 ## 📦 Passo 2: Criando o Domínio (Model)
 
@@ -54,6 +55,7 @@ public enum ClasseRPG {
     ARQUEIRO,
     LADINO
 }
+```
 
 ## 💾 Passo 3: Acesso a Dados (Repository)
 
@@ -88,6 +90,7 @@ public interface AventureiroRepository extends JpaRepository<Aventureiro, Long> 
     List<Aventureiro> findByClasse(ClasseRPG classe);
 
 }
+```
 
 ## 🧠 Passo 4: Regra de Negócio (Service)
 
@@ -155,6 +158,7 @@ public class AventureiroService {
         return repository.save(heroi);
     }
 }
+```
 
 ## 🌐 Passo 5: Expondo a API (Controller)
 
@@ -208,6 +212,7 @@ public class AventureiroController {
         return service.realizarMissao(id);
     }
 }
+```
 
 ## 🧪 Passo 6: Testando (Hora da Verdade)
 
@@ -215,7 +220,7 @@ Agora que temos o Controller, o Service, o Repository e a Entidade conectados, v
 
 Você pode usar ferramentas visuais como **Postman** ou **Insomnia**, ou se preferir ser "hardcore", o terminal com **cURL**.
 
-Certifique-se de que a sua aplicação Spring Boot está a rodar (Run no IntelliJ/Eclipse ou `mvn spring-boot:run`).
+Certifique-se de que a sua aplicação Spring Boot está a rodar (Run no IntelliJ ou `mvn spring-boot:run`).
 
 ---
 
@@ -223,8 +228,44 @@ Certifique-se de que a sua aplicação Spring Boot está a rodar (Run no Intelli
 Primeiro, precisamos popular o nosso banco de dados. Vamos criar um herói.
 
 * **Método:** `POST`
-* **URL:** `http://localhost:8080/aventureiros`
+* **URL:** `http://localhost:8080/aventureiros/adicionar`
 * **Body (JSON):**
 
 ```json
 {
+    "nome": "Geralt",
+    "classe": "GUERREIRO"
+}
+```
+### 2. Ver Guilda (GET)
+Agora vamos ver os membros da guilda
+
+* **Método:** `GET`
+* **URL:** `http://localhost:8080/aventureiros/guida`
+* **Body (JSON):**
+
+```json
+{
+    "nome": "Geralt",
+    "classe": "GUERREIRO",
+    "nivel": 1,
+    "xp": 0,
+}
+```
+
+### 3. Vamos para a missão
+Agora vamos enviar nosso guerreiro para uma missão
+
+* **Método:** `PUT`
+* **URL:** `http://localhost:8080/aventureiros/1/missao`
+* **Body (JSON):**
+
+```json
+{
+    "id": 1,
+    "nome": "Geralt",
+    "classe": "GUERREIRO",
+    "nivel": 1,
+    "xp": 15
+}
+```
