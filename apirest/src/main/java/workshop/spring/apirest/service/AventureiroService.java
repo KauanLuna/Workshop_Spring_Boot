@@ -1,6 +1,7 @@
 package workshop.spring.apirest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import workshop.spring.apirest.entity.Aventureiro;
 import workshop.spring.apirest.entity.ClasseRPG;
 import workshop.spring.apirest.repository.AventureiroRepository;
@@ -8,6 +9,7 @@ import workshop.spring.apirest.repository.AventureiroRepository;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AventureiroService {
 
     @Autowired
@@ -23,6 +25,10 @@ public class AventureiroService {
 
     public Aventureiro update(Aventureiro aventureiro) {
         return aventureiroRepository.save(aventureiro);
+    }
+
+    public void delete(Long id) {
+        aventureiroRepository.deleteById(id);
     }
 
     public List<Aventureiro> findAll() {
@@ -47,5 +53,20 @@ public class AventureiroService {
 
     public List<Aventureiro> findByXp(Integer xp) {
         return aventureiroRepository.findByXp(xp);
+    }
+
+    public Aventureiro realizarMissao(Long id) {
+        Aventureiro heroi = aventureiroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Aventureiro não encontrado ID: " + id));
+
+        int xpGanho = (int) (Math.random() * 10) + 10;
+        heroi.setXp(heroi.getXp() + xpGanho);
+
+        if (heroi.getXp() >= 100) {
+            heroi.setNivel(heroi.getNivel() + 1);
+            heroi.setXp(0);
+        }
+
+        return aventureiroRepository.save(heroi);
     }
 }
