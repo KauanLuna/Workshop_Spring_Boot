@@ -1,6 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PropertiesComponent">{}</component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a9d254cb-aa5a-4d9a-a2cc-266519441a88" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/src/main/java/workshop/spring/apirest/ApiRestApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/src/main/java/workshop/spring/apirest/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/src/main/java/workshop/spring/apirest/controller/AventureiroController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/src/main/java/workshop/spring/apirest/entity/Aventureiro.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/src/main/java/workshop/spring/apirest/entity/ClasseRPG.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/src/main/java/workshop/spring/apirest/repository/AventureiroRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/src/main/java/workshop/spring/apirest/service/AventureiroService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/apirest/src/test/java/workshop/spring/apirest/ApirestApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/controller/AventureiroController.java" beforeDir="false" afterPath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/controller/AventureiroController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/entity/Aventureiro.java" beforeDir="false" afterPath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/entity/Aventureiro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/entity/ClasseRPG.java" beforeDir="false" afterPath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/entity/ClasseRPG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/repository/AventureiroRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/repository/AventureiroRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/service/AventureiroService.java" beforeDir="false" afterPath="$PROJECT_DIR$/apirest/src/main/java/workshop/spring/apirest/service/AventureiroService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "KauanLuna"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/KauanLuna/Workshop_Spring_Boot.git",
+    "accountId": "f66d872b-efc2-4828-a598-62dd7474804e"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="35x8AcxKl8LQtmIYe4lXyU7vbbf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ApiRestApplication.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="ApiRestApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="workshop.spring.apirest.ApiRestApplication" />
@@ -20,5 +89,15 @@
         <item itemvalue="Application.ApiRestApplication" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a9d254cb-aa5a-4d9a-a2cc-266519441a88" name="Changes" comment="" />
+      <created>1764040221722</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1764040221722</updated>
+    </task>
+    <servers />
   </component>
 </project>
