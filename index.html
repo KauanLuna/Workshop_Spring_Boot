@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Press Start 2P', cursive;
-            background-color: #212529;
+            background-color: black;
             color: white;
             padding: 2rem;
         }
@@ -27,9 +27,9 @@
         <p>Gestão de Aventureiros</p>
     </div>
 
-    <div class="nes-container with-title is-centered">
-        <p class="title">Novo Recruta</p>
-        <div style="background-color: white; color: black; padding: 1rem;">
+    <div class="nes-container with-title is-centered" style="border-color: white;">
+        <p class="title" style="background-color: black; color: white;">Novo Recruta</p>
+        <div style="background-color: black; color: white; padding: 1rem;">
             
             <div class="nes-field">
                 <label for="nome">Nome do Herói:</label>
@@ -61,8 +61,8 @@
 
     <br><br>
 
-    <div class="nes-container with-title is-dark">
-        <p class="title">Membros da Guilda</p>
+    <div class="nes-container with-title is-dark" style="border-color: white;">
+        <p  style="background-color: transparent; color: white;">Membros da Guilda</p>
         <div id="lista-herois">
             <p>Carregando taverna...</p>
         </div>
@@ -92,7 +92,7 @@
                 const porcentagemXp = heroi.xp; 
 
                 lista.innerHTML += `
-                    <div class="nes-container is-rounded is-light card-heroi" style="color: black;">
+                    <div class="nes-container is-rounded is-dark card-heroi" style="color: white;">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div>
                                 <h3>${getIcone(heroi.classe)} ${heroi.nome}</h3>
